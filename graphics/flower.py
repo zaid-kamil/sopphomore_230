@@ -14,6 +14,5 @@ for i in range(5):
     end_fill()
     penup()
     bk(80)
-    pendown()
-    
+    pendown()  
 mainloop() 

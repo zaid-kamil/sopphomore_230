@@ -3,7 +3,6 @@ import random
 
 s =Screen()
 s.setup(500,500)
-s.bgcolor('black')
 speed('fastest')
 colors = ['pink','orange']
 for i in range(50):
