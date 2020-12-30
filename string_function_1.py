@@ -20,7 +20,8 @@ print(y)
 
 print(len("amazing"))
 print(len("world"))
-print(len("bringer"))
+size = len("hope")
+print(size)
 
 x = 49.3
 x = str(x) # converted float to str

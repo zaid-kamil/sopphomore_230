@@ -1,4 +1,4 @@
 for i in range(1,15,2):
-    print((i *  ' T').center(55))
+    print((i *  ' T').center(30))
 
 

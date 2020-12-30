@@ -3,7 +3,7 @@
 # concatenation
 a = 'apple'
 b = 'juice'
-ab = a + b # python will add these two string together
+ab = a + b 
 print(ab)
 
 w1 = 'this'
@@ -18,6 +18,6 @@ msg = f'{w1} {w2} {w3}'
 print(msg)
 
 # string multiplication
-word = 'Ho'
+word = 'Hi'
 print(word * 3)
 print('-' * 25)
