@@ -17,11 +17,11 @@ def draw():
     screen.draw.text("Happy new year 2021",(100,200),color='black',fontsize=100)
 
 def update():
-    p1.x += 2
-    if p1.x > WIDTH:
-        p1.x = 0
-    p2.x += 3
-    if p2.x > WIDTH:
-        p2.x = 0
+    p1.y += 2
+    if p1.y > WIDTH:
+        p1.y = 0
+    p2.y += 3
+    if p2.y > WIDTH:
+        p2.y = 0
         
 pgzrun.go()
