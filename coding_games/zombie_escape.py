@@ -9,6 +9,7 @@ zombie2 = Actor('zombie',midright =(1000,200))
 zombie3 = Actor('zombie',midright =(1550,350))
 score = 0
 msg = ''
+
 killed = False
 def draw():
     screen.clear()
