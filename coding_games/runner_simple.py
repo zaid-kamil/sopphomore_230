@@ -8,12 +8,14 @@ p1 = Actor('player',midleft=(0,250))
 p2 = Actor('player2',midright=(600,350))
 cloud1 = Actor('cloud',topleft=(100,30))
 cloud2 = Actor('cloud2',topleft=(0,10))
+tree1 = Actor('tree', bottomleft =(60,200))
 
 def draw():
     screen.clear()
     bg.draw()
     cloud1.draw()
     cloud2.draw()
+    tree1.draw()
     p1.draw()
     p2.draw()
 
@@ -33,5 +35,8 @@ def update():
     cloud2.x += 1
     if cloud2.x > WIDTH:
         cloud2.x =0
+    tree1.x -= 1
+    if tree1.x < 0:
+        tree1.x =WIDTH
 
 pgzrun.go()
