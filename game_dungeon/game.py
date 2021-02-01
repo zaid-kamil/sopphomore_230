@@ -18,6 +18,7 @@ maze = [[0,0,0,0,0,5,0,0,0,0],
 
 player = Actor('hero',anchor=(0,0),pos=(0*TILE_SIZE,1*TILE_SIZE))
 blade = Actor('blade',anchor=(0,0),pos=(1*TILE_SIZE,4*TILE_SIZE))
+blade.xv = -1
 
 def draw():
     screen.clear()
@@ -30,8 +31,10 @@ def draw():
             screen.blit(tile,(x,y))
     player.draw()
     blade.draw()
+     
 
 def on_key_down(key):
+    # player movement
     row = int(player.y // TILE_SIZE)
     col =  int(player.x // TILE_SIZE)
     if key == key.UP:
@@ -42,14 +45,32 @@ def on_key_down(key):
         col = col-1    
     if key == key.RIGHT:
         col = col+1
-    print(row,col)
     tile = tiles[maze[row][col]]
     if tile !='wall':
-        player.x = col * TILE_SIZE
-        player.y = row * TILE_SIZE
+        x = col * TILE_SIZE
+        y = row * TILE_SIZE
+        animate(player,duration=.1, pos=(x,y))
     if tile =='door':
         print('well done, you won')
-        player.x = col * TILE_SIZE
-        player.y = row * TILE_SIZE
+        x = col * TILE_SIZE
+        y = row * TILE_SIZE
+        animate(player,duration=.1, pos=(x,y))
+
+    # enemy movement
+    row = int(blade.y / TILE_SIZE)
+    col =  int(blade.x / TILE_SIZE)
+    col = col + blade.xv
+    tile = tiles[maze[row][col]]
+    print(row,col,tile)
+    if tile != 'wall':
+        x = col * TILE_SIZE
+        y = row * TILE_SIZE
+        animate(blade,duration=.1, pos=(x,y))
+    else:
+        blade.xv = blade.xv * -1
+    if blade.colliderect(player):
+        print('you died')
+        exit()
+
 pgzrun.go()
 
