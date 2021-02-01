@@ -18,7 +18,13 @@ maze = [[0,0,0,0,0,5,0,0,0,0],
 
 player = Actor('hero',anchor=(0,0),pos=(0*TILE_SIZE,1*TILE_SIZE))
 blade = Actor('blade',anchor=(0,0),pos=(1*TILE_SIZE,4*TILE_SIZE))
+
+# settings
 blade.xv = -1
+unlock = 0 # the gate is locked
+score = 0  # player score
+go = 1     # game state
+msg= ''    # no msg
 
 def draw():
     screen.clear()
@@ -31,9 +37,29 @@ def draw():
             screen.blit(tile,(x,y))
     player.draw()
     blade.draw()
-     
+    if unlock ==0:
+        ds = 'closed'
+    else:
+        ds = 'open'
+    
+    screen.draw.text(f'score: {score}\t door: {ds}',(10,10),color='blue')
+    screen.draw.text(msg,(TILE_SIZE*3,TILE_SIZE*3),color='red',fontsize=40)
 
 def on_key_down(key):
+    global msg
+    if go == 1:
+        # movement
+        player_move(key)
+        blade_move(key)
+    if go == 2:
+        msg = 'well done, you won'
+    if go == 0:
+        msg = 'GAME OVER !!!'
+
+def player_move(key):
+    global unlock  # this mean -> this variable is created out of fucntion
+    global score
+    global go
     # player movement
     row = int(player.y // TILE_SIZE)
     col =  int(player.x // TILE_SIZE)
@@ -46,17 +72,34 @@ def on_key_down(key):
     if key == key.RIGHT:
         col = col+1
     tile = tiles[maze[row][col]]
-    if tile !='wall':
+    if tile =='road' or tile =='diamond' or tile =='key': 
         x = col * TILE_SIZE
         y = row * TILE_SIZE
         animate(player,duration=.1, pos=(x,y))
     if tile =='door':
-        print('well done, you won')
+        go = 2
         x = col * TILE_SIZE
         y = row * TILE_SIZE
         animate(player,duration=.1, pos=(x,y))
+    if tile == 'key':
+        unlock = 1                              # logic for saying player has key
+        maze[row][col] = 1 
+    if tile == 'diamond':                              
+        maze[row][col] = 1      
+        score +=1                                         # change the key image to road , so we can say we picked the key
+    if tile == 'close_door' and unlock == 1:    # if you have key
+        maze[row][col] = 1
+        x = col * TILE_SIZE
+        y = row * TILE_SIZE
+        animate(player,duration=.1, pos=(x,y))
+    else:
+        pass                                    # dont let the player move out
+    print(tile,row,col)
 
-    # enemy movement
+def blade_move(key):
+    # blade movement
+    global go
+
     row = int(blade.y / TILE_SIZE)
     col =  int(blade.x / TILE_SIZE)
     col = col + blade.xv
@@ -70,7 +113,8 @@ def on_key_down(key):
         blade.xv = blade.xv * -1
     if blade.colliderect(player):
         print('you died')
-        exit()
+        go = 0
+        player.image = 'road' # dead player
 
 pgzrun.go()
 
