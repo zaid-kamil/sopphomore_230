@@ -8,13 +8,13 @@ tiles = ['wall','road','blade','close_door',
         'diamond','door','hero','key']
 
 maze = [[0,0,0,0,0,5,0,0,0,0],
-        [1,1,1,4,0,4,1,0,1,0],
+        [1,1,1,4,0,4,1,0,1,1],
         [0,1,0,1,0,1,3,0,1,0],
-        [0,1,0,1,1,0,1,1,1,0],
+        [0,1,0,1,1,0,1,1,1,1],
         [0,1,1,1,1,0,0,0,1,0],
-        [0,1,0,0,1,1,1,0,1,0],
-        [0,1,7,0,4,1,1,1,1,0],
-        [0,0,0,0,0,0,0,0,0,0]]
+        [0,1,0,0,1,1,1,0,1,1],
+        [0,1,7,0,4,1,1,1,1,4],
+        [0,0,0,0,0,0,0,4,1,4]]
 
 player = Actor('hero',anchor=(0,0),pos=(0*TILE_SIZE,1*TILE_SIZE))
 blade = Actor('blade',anchor=(0,0),pos=(1*TILE_SIZE,4*TILE_SIZE))
@@ -47,14 +47,17 @@ def draw():
 
 def on_key_down(key):
     global msg
-    if go == 1:
-        # movement
-        player_move(key)
-        blade_move(key)
-    if go == 2:
-        msg = 'well done, you won'
-    if go == 0:
-        msg = 'GAME OVER !!!'
+    try:
+        if go == 1:
+            # movement
+            player_move(key)
+            blade_move(key)
+        if go == 2:
+            msg = 'well done, you won'
+        if go == 0:
+            msg = 'GAME OVER !!!'
+    except:
+        pass
 
 def player_move(key):
     global unlock  # this mean -> this variable is created out of fucntion
