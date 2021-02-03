@@ -12,7 +12,7 @@ while True:
     cv2.imshow('black n white',gray)
 
     # other filter convert
-    colorframe = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    colorframe = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV_FULL)
     cv2.imshow('colored',colorframe)
     
     if cv2.waitKey(1) == 27:
