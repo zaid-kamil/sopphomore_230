@@ -1,1 +1,1 @@
-pip install opencv-contrib-python pygamezero
+pip install opencv-contrib-python pygamezero pillow
